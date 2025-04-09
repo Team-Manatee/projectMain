@@ -1,0 +1,92 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Manatee Sound Separation{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #e0f7fa;
+            color: #333;
+            text-align: center;
+        }
+
+        .banner {
+            background-color: #00796b;
+            padding: 50px 20px;
+            color: white;
+        }
+
+        .banner h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .content {
+            margin: 60px auto;
+            font-size: 1.2rem;
+            max-width: 1000px;
+            padding: 0 20px;
+        }
+
+        .main-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .main-button {
+            background-color: #26a69a;
+            color: white;
+            padding: 30px 50px;
+            font-size: 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-button:hover {
+            background-color: #1e857d;
+            transform: scale(1.05);
+        }
+
+        .back-link {
+            margin-top: 30px;
+            display: inline-block;
+            color: #00796b;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 80px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banner">
+        <h1>{% block banner_title %}Manatee Sound Separation{% endblock %}</h1>
+        {% block banner_subtitle %}{% endblock %}
+    </div>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <p>Team Manatee • CEN4090L</p>
+    </footer>
+</body>
+</html>
