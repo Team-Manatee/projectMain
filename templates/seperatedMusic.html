@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Separated Music Files - Manatee{% endblock %}
+{% block banner_title %}🎵 Separated Music Files{% endblock %}
+
+{% block content %}
+<!-- main card container for displaying separated music tracks -->
+<div class="card">
+    <h2>Separated Music Tracks</h2>
+
+    {% if original_file %}
+        <!-- container for the original audio file player -->
+        <div class="card original-audio">
+            <h3>Original Audio</h3>
+            <div class="audio-player">
+                <audio controls>
+                    <!-- dynamic source url with conditional mime type based on file extension -->
+                    <source src="{{ url_for('serve_file', filename=original_file) }}"
+                            type="audio/{{ 'mpeg' if original_file.endswith('.mp3') else 'wav' }}">
+                    Your browser does not support this audio type
+                </audio>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if audio_files %}
+        <!-- loop through each folder of separated tracks -->
+        {% for key, folder in audio_files.items() %}
+            <div class="card">
+                <!-- folder name as heading -->
+                <h3>{{ key }}</h3>
+                <!-- loop through each audio file in folder -->
+                {% for a in folder %}
+                    <!-- only display mp3 files -->
+                    {% if a.endswith('.mp3') %}
+                        <div class="audio-player">
+                            <!-- audio file name -->
+                            <p>{{ a }}</p>
+                            <audio controls>
+                                <!-- path to separated file with folder and filename parameters -->
+                                <source src="{{url_for('serve_sep_file', folder_name=key, audio_name=a)}}" type="audio/mpeg">
+                                Your browser does not support this audio type
+                            </audio>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <!-- message displayed when no separated files exist -->
+        <div class="alert alert-info">
+            <p>No separated audio files found. Please process some audio files first.</p>
+        </div>
+        <!-- navigation buttons for upload and separation -->
+        <a href="/upload" class="btn btn-primary">Upload Audio</a>
+        <a href="/music" class="btn btn-secondary">Go to Music Separation</a>
+    {% endif %}
+</div>
+
+    <!-- navigation link to return to music separation page -->
+    <div class="navigation-links">
+        <a href="/music" class="btn btn-secondary">Back to Music Separation</a>
+    </div>
+
+<!-- styles for audio players -->
+<style>
+    /* styling for individual audio containers */
+    .audio-player {
+        margin: 15px 0;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    /* audio controls full width */
+    audio {
+        width: 100%;
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}

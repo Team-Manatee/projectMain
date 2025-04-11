@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Vocal Separation - Manatee{% endblock %}
+{% block banner_title %}🎤 Vocal Separation{% endblock %}
+
+{% block content %}
+<!-- main container for vocal separation tool -->
+<div class="card">
+    <h2>Separate Vocals from Audio</h2>
+    <p>This feature allows you to isolate vocal tracks from your audio files.</p>
+
+    {% if audio_files %}
+        <!-- selecting and processing audio files -->
+        <form action="/separate" method="post" class="separation-form">
+            <div class="form-group">
+                <!-- dropdown for selecting from audio files -->
+                <label for="audio_file">Select an audio file to process:</label>
+                <select name="audio_file" id="audio_file" class="form-control">
+                    {% for file in audio_files %}
+                        <option value="{{ file }}">{{ file }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- submit button to start separation -->
+            <button type="submit" class="btn btn-primary">Separate Vocals</button>
+            <!-- time warning message -->
+            <p class="alert alert-info">This process may take a few minutes depending on the file size.</p>
+        </form>
+    {% else %}
+        <!-- message displayed when no audio files are available -->
+        <div class="alert alert-info">
+            <p>No audio files found. Please upload some files first.</p>
+        </div>
+        <!-- button to navigate to upload page -->
+        <a href="/upload" class="btn btn-secondary">Upload Audio Files</a>
+    {% endif %}
+</div>
+
+<!-- navigation link back to home page -->
+<a href="/" class="back-link">← Back to Home</a>
+{% endblock %}

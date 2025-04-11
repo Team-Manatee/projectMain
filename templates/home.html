@@ -1,76 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Manatee Sound Separation</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #e0f7fa;
-            color: #333;
-            text-align: center;
-        }
+{% extends "base.html" %}
 
-        .banner {
-            background-color: #00796b;
-            padding: 50px 20px;
-            color: white;
-        }
+{% block title %}Home - Manatee Audio Processor{% endblock %}
+{% block banner_title %}Welcome to Manatee Audio Processor{% endblock %}
 
-        .banner h1 {
-            font-size: 3rem;
-            margin: 0;
-        }
-
-        .main-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 60px;
-            flex-wrap: wrap;
-        }
-
-        .main-button {
-            background-color: #26a69a;
-            color: white;
-            padding: 30px 50px;
-            font-size: 1.5rem;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .main-button:hover {
-            background-color: #1e857d;
-            transform: scale(1.05);
-        }
-
-        footer {
-            margin-top: 80px;
-            color: #666;
-            font-size: 0.9rem;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="banner">
-        <h1>Manatee Sound Separation</h1>
-        <p>Choose what you'd like to do today.</p>
-    </div>
-
-<div class="main-buttons">
-    <a href="/music" class="main-button">🎵 Music Separation</a>
-    <a href="/audio" class="main-button">🎧 Audio Player</a>
-    <a href="/conversation" class="main-button">🗣️ Conversational Separation</a>
+{% block content %}
+<!-- main introduction card -->
+<div class="card">
+   <h2>Audio Processing Made Simple</h2>
+   <p>Welcome to Manatee, your all-in-one solution for audio separation and processing. Choose one of our features below:</p>
 </div>
 
+<!-- container for all link cards -->
+<div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
+   <!-- music separation card -->
+   <div style="flex: 1; min-width: 300px;">
+       <div class="card">
+           <h3>🎵 Music Separation</h3>
+           <p>Separate your music tracks into different instrument components like drums, bass, vocals, and other.</p>
+           <a href="/music" class="btn btn-primary">Go to Music Separation</a>
+       </div>
+   </div>
 
-    <footer>
-        <p>Team Manatee • CEN4090L</p>
-    </footer>
+   <!-- vocal separation card -->
+   <div style="flex: 1; min-width: 300px;">
+       <div class="card">
+           <h3>🎤 Vocal Separation</h3>
+           <p>Extract vocals from your audio tracks with our precision voice isolation technology.</p>
+           <a href="/vocal" class="btn btn-primary">Go to Vocal Separation</a>
+       </div>
+   </div>
+</div>
 
-</body>
-</html>
+<!-- file management card -->
+<div class="card" style="margin-top: 20px;">
+   <h3>📁 Manage Your Audio Files</h3>
+   <p>Upload new audio files or manage your existing audio library.</p>
+   <!-- button container -->
+   <div style="display: flex; gap: 10px;">
+       <a href="/upload" class="btn btn-primary">Upload Audio</a>
+       <a href="/audio_player" class="btn btn-secondary">View Your Files</a>
+   </div>
+</div>
+{% endblock %}

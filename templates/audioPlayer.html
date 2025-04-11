@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{# Page title and banner title #}
+{% block title %}Audio Player - Manatee{% endblock %}
+{% block banner_title %}🎧 Audio Player{% endblock %}
+
+{# Override flash messages block - intentionally empty #}
+{% block flash_messages %}
+{% endblock %}
+
+{% block content %}
+    {# Main navigation button for uploading audio files #}
+    <div class="main-buttons">
+        <a href="/upload" class="btn btn-primary">Upload Audio</a>
+    </div>
+
+    {# Display delete confirmation message if present #}
+    {% if delete_message %}
+        <div class="alert alert-info">
+            {{ delete_message }}
+        </div>
+    {% endif %}
+
+    {# Check if there are audio files to display #}
+    {% if audio_files and audio_files|length > 0 %}
+        <h2 class="section-title">Your Audio Library</h2>
+        {# Loop through each audio file and create a card for it #}
+        {% for file in audio_files %}
+            <div class="card">
+                <h3>🎵 {{ file }}</h3>
+
+                {# Audio player with format-specific source handling #}
+                <div class="audio-player">
+                    <audio controls>
+                        {% if file.endswith('.mp3') %}
+                            <source src="{{ url_for('serve_file', filename=file) }}" type="audio/mpeg">
+                        {% elif file.endswith('.wav') %}
+                            <source src="{{ url_for('serve_file', filename=file) }}" type="audio/wav">
+                        {% endif %}
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+
+                {# Form for deleting the current audio file #}
+                <form action="{{ url_for('delete_audio', filename=file) }}" method="POST" class="delete-form">
+                    <button type="submit" class="btn btn-secondary">Delete</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        {# Display message when no audio files are found #}
+        <div class="card">
+            <div class="alert alert-info">
+                <p>No audio files found. Upload something to get started!</p>
+            </div>
+        </div>
+    {% endif %}
+
+    {# Navigation link back to home page #}
+    <a href="/" class="back-link">← Back to Home</a>
+
+    {# Inline CSS styles for audio player components #}
+    <style>
+        /* Styling for section titles */
+        .section-title {
+            margin-top: 30px;
+            color: #00796b;
+        }
+
+        /*margin for delete form */
+        .delete-form {
+            margin-top: 15px;
+        }
+
+        /*spacing for audio player container */
+        .audio-player {
+            margin: 15px 0;
+        }
+
+        /* Make audio controls span full width */
+        audio {
+            width: 100%;
+        }
+    </style>
+{% endblock %}

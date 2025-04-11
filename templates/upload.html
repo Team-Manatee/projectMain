@@ -1,137 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Audio</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 30px;
-            background-color: #f5f5f5;
-            color: #333;
-        }
+{% extends "base.html" %}
 
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-        }
+{% block title %}Upload File - Manatee{% endblock %}
 
-        .upload-container {
-            background-color: white;
-            margin: 30px 0;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
+{% block banner_title %}📤 Upload File{% endblock %}
 
-        .instructions {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            color: #505050;
-        }
+{% block content %}
+<!-- main card for file upload functionality -->
+<div class="card">
+    <h2>Upload Audio File</h2>
+    <p class="instructions">Select an MP3 or WAV file to upload to your audio library:</p>
 
-        .file-upload-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+    <!-- upload form for file uploads -->
+    <form class="file-upload-form" action="/upload_audio" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <!-- file input field with label -->
+            <label class="file-input-label" for="fileUpload">Choose Audio File:</label>
+            <input type="file" id="fileUpload" name="fileUp" required="required" accept=".mp3,.wav" class="form-control">
+            <!-- text showing supported file formats -->
+            <p class="file-requirements">Supported formats: MP3, WAV</p>
+        </div>
 
-        .file-input-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .file-input-label {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .file-requirements {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-
-        input[type="file"] {
-            border: 2px dashed #3498db;
-            padding: 30px;
-            border-radius: 8px;
-            background-color: #f8f9fa;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        input[type="file"]:hover {
-            background-color: #edf2f7;
-        }
-
-        input[type="submit"] {
-            background-color: #3498db;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            align-self: flex-start;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #2980b9;
-            transform: scale(1.05);
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 20px;
-            color: #3498db;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            margin-top: 40px;
-            text-align: center;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-        }
-    </style>
-</head>
-<body>
-    <h1>Upload Audio</h1>
-
-    <div class="upload-container">
-        <p class="instructions">Select an MP3 or WAV file to upload to your audio library:</p>
-
-        <form class="file-upload-form" action="/upload_audio" method="post" enctype="multipart/form-data">
-            <div class="file-input-container">
-                <label class="file-input-label" for="fileUpload">Choose Audio File:</label>
-                <input type="file" id="fileUpload" name="fileUp" required="required" accept=".mp3,.wav">
-                <p class="file-requirements">Supported formats: MP3, WAV</p>
-            </div>
-
-            <input type="submit" value="Upload Audio">
-        </form>
-    </div>
-
-    <a href="/" class="back-link">← Back to Audio Player</a>
-
-    <footer>
-        <p>Simple Audio Player Web App</p>
-    </footer>
-</body>
-</html>
+        <!-- form submission button -->
+        <button type="submit" class="btn btn-primary">Upload Audio</button>
+    </form>
+</div>
+    <!-- navigation container with back link -->
+    <div style="margin-top: 20px;">
+    <a href="/" class="back-link">← Back to Home</a>
+</div>
+{% endblock %}

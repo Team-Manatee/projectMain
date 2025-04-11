@@ -4,6 +4,40 @@
 {% block banner_title %}🎵 Music Separation{% endblock %}
 
 {% block content %}
-    <p>This feature is coming soon. Stay tuned for audio magic 🎶</p>
+<!-- main card container for the music separation tool -->
+<div class="card">
+    <h2>Music Separation</h2>
+    <p>Separate your music into individual instrument tracks (drums, bass, vocals, etc.)</p>
+
+    {% if audio_files %}
+        <!-- form for selecting and processing audio files -->
+        <form action="/music_sep" method="post" class="separation-form">
+            <div class="form-group">
+                <!-- dropdown for selecting from available audio files -->
+                <label for="audio_file">Select an audio file to separate:</label>
+                <select name="audio_file" id="audio_file" class="form-control">
+                    {% for file in audio_files %}
+                        <option value="{{ file }}">{{ file }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- submit button to start separation process -->
+            <button type="submit" class="btn btn-primary">Separate Music</button>
+            <!-- processing time warning message -->
+            <!-- Should look into making a loading screen here -->
+            <p class="alert alert-info">This process may take a few minutes depending on the file size.</p>
+        </form>
+    {% else %}
+        <!-- message displayed when no audio files found -->
+        <div class="alert alert-info">
+            <p>No audio files found. Please upload some files first.</p>
+        </div>
+        <!-- button to navigate to upload page -->
+        <a href="/upload" class="btn btn-secondary">Upload Audio Files</a>
+    {% endif %}
+</div>
+    <!-- navigation container with back link -->
+    <div style="margin-top: 20px;">
     <a href="/" class="back-link">← Back to Home</a>
+</div>
 {% endblock %}

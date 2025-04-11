@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Separation Results - Manatee{% endblock %}
+{% block banner_title %}? Separation Results{% endblock %}
+
+{% block content %}
+<!-- main container for displaying separation results -->
+<div class="card">
+    <h2>Processing Results</h2>
+
+    <!-- status message -->
+    <div class="alert alert-info">
+        {{ msg|safe }}
+    </div>
+
+    {% if original_file %}
+        <!-- audio file player section -->
+        <div class="audio-player original">
+            <h3>Original Audio</h3>
+            <audio controls>
+                <!-- dynamic source url with conditional mime type -->
+                <source src="{{ url_for('serve_file', filename=original_file) }}"
+                        type="audio/{{ 'mpeg' if original_file.endswith('.mp3') else 'wav' }}">
+                Your browser does not support this audio type
+            </audio>
+        </div>
+    {% endif %}
+
+    {% if "Voice separation complete" in msg or "separated files" in msg %}
+        <!-- container for separated audio tracks -->
+        <div class="separated-files">
+            <h3>Separated Tracks</h3>
+            {% for filename in separated_files %}
+                <!-- separated track player -->
+                <div class="audio-player">
+                    <h4>{{ filename }}</h4>
+                    <audio controls>
+                        <source src="{{ url_for('serve_separated_file', filename=filename) }}" type="audio/wav">
+                        Your browser does not support this audio type
+                    </audio>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- navigation buttons section -->
+    <div class="navigation-links">
+        <a href="/vocal" class="btn btn-secondary">Back to Vocal Separation</a>
+    </div>
+</div>
+
+<!-- css styles for the results page -->
+<style>
+    /* audio containers */
+    .audio-player {
+        margin: 20px 0;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+    }
+
+    /* audio headings */
+    .audio-player h3 {
+        margin-top: 0;
+        color: #00796b;
+    }
+
+    /* make audio controls full width */
+    audio {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    /* navigation links container */
+    .navigation-links {
+        margin-top: 30px;
+        display: flex;
+        gap: 10px;
+    }
+
+    /* container for the separated audio files */
+    .separated-files {
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
