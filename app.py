@@ -139,9 +139,9 @@ try:
     # Initialize the vocal separation model
     with safe_globals(["numpy.core.multiarray.scalar"]):
         if HF_TOKEN:
-            model = ConvTasNet.from_pretrained("JorisCos/ConvTasNet_Libri2Mix_sepclean_16k", use_auth_token=HF_TOKEN)
+            model = ConvTasNet.from_pretrained("JorisCos/ConvTasNet_Libri3Mix_sepclean_16k", use_auth_token=HF_TOKEN)
         else:
-            model = ConvTasNet.from_pretrained("JorisCos/ConvTasNet_Libri2Mix_sepclean_16k")
+            model = ConvTasNet.from_pretrained("JorisCos/ConvTasNet_Libri3Mix_sepclean_16k")
     model.eval()
 except Exception as e:
     print(f"Error loading ConvTasNet model: {e}")
